@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Listing do
   before(:each) do
-    @listing = Listing.new(:name => "A Sample Property", :city => "Las Vegas", :state => "NV")
+    @listing = Listing.create(:name => "A Sample Property", :city => "Las Vegas", :state => "NV")
   end
   
   it "should be valid with valid attributes" do
@@ -10,25 +10,21 @@ describe Listing do
   end
   
   it "should not be valid without a name" do
-    no_name = @listing.clone
-    no_name.name = nil
-    no_name.should_not be_valid
+    @listing.name = nil
+    @listing.should_not be_valid
   end
 
   it "should not be valid without a city" do
-    no_city = @listing.clone
-    no_city.city = nil
-    no_city.should_not be_valid
+    @listing.city = nil
+    @listing.should_not be_valid
   end
   
   it "should not be valid without a state" do
-    no_state = @listing.clone
-    no_state.state = nil
-    no_state.should_not be_valid
+    @listing.state = nil
+    @listing.should_not be_valid
   end
   
   it "should be listed by its state" do
-    @listing.save
     Listing.by_state(@listing.state).should include(@listing)    
   end
   
@@ -38,7 +34,6 @@ describe Listing do
   end
   
   it "should be listed by its city" do
-    @listing.save
     Listing.by_city(@listing.city).should include(@listing)
   end
   
@@ -47,5 +42,8 @@ describe Listing do
     Listing.by_city(@listing.city).should_not include(listing_az)
   end
   
+  it "should be listed by both its city and state" do
+    Listing.by_state(@listing.state).by_city(@listing.city).should include(@listing)
+  end
 
 end
