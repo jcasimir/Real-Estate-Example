@@ -1,0 +1,24 @@
+<% title "Listing" %>
+
+<p>
+  <strong>City:</strong>
+  <%= @listing.city %>
+</p>
+<p>
+  <strong>State:</strong>
+  <%= @listing.state %>
+</p>
+<p>
+  <strong>Name:</strong>
+  <%= @listing.name %>
+</p>
+<p>
+  <strong>Price:</strong>
+  <%= @listing.price %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_listing_path(@listing) %> |
+  <%= link_to "Destroy", @listing, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", listings_path %>
+</p>

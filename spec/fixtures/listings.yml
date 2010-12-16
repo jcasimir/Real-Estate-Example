@@ -1,0 +1,11 @@
+one:
+  city: MyString
+  state: MyString
+  name: MyString
+  price: 1
+
+two:
+  city: MyString
+  state: MyString
+  name: MyString
+  price: 1
