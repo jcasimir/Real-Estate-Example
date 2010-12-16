@@ -29,10 +29,23 @@ describe Listing do
   
   it "should be listed by its state" do
     @listing.save
-    Listing.by_state("NV").should include(@listing)    
+    Listing.by_state(@listing.state).should include(@listing)    
   end
   
-  it "should not be listed when querying for a different state"
+  it "should not be listed when querying for a different state" do
+    listing_az = @listing.clone.update_attributes(:city => "Phoenix", :state => "AZ")
+    Listing.by_state(@listing.state).should_not include(listing_az)
+  end
+  
+  it "should be listed by its city" do
+    @listing.save
+    Listing.by_city(@listing.city).should include(@listing)
+  end
+  
+  it "should not be listed when querying for a different city" do
+    listing_az = @listing.clone.update_attributes(:city => "Phoenix", :state => "AZ")
+    Listing.by_city(@listing.city).should_not include(listing_az)
+  end
   
 
 end

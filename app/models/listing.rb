@@ -6,5 +6,9 @@ class Listing < ActiveRecord::Base
     def by_state(state)
       where(:state => state)
     end
+    
+    def by_city(city)
+      where(:city => city)
+    end
   end
 end
