@@ -73,4 +73,20 @@ describe Listing do
   it "should include a nearby listing when searching by state" do
     Listing.search(:state => @listing.state).should include(@nearby)
   end
+  
+  it "should provide a list of all available state abbreviations" do
+    ls = Listing.all
+    states = Listing.available_states
+    ls.each do |listing|
+      states.should include(listing.state)
+    end
+  end
+  
+  it "should provide a list of all available cities" do
+    ls = Listing.all
+    cities = Listing.available_cities
+    ls.each do |listing|
+      cities.should include(listing.city)
+    end
+  end
 end

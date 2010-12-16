@@ -17,5 +17,18 @@ class Listing < ActiveRecord::Base
       search = search.by_state(params[:state]) if params[:state]
       search
     end
+    
+    def available_states
+      find_available(:state)
+    end
+    
+    def available_cities
+      find_available(:city)
+    end
+    
+  private
+    def find_available(column_name)
+      Listing.group(column_name).select(column_name).collect(&column_name).sort
+    end
   end
 end
