@@ -10,6 +10,12 @@
   %ul
     - Listing.available_cities.each do |city|
       %li= link_to city, listings_path(:city => city)
+      
+  %p Filter by Sale Type
+  %ul
+    %li= link_to "For Sale", listings_path(params.merge(:sale_type => 'for_sale'))
+    %li= link_to "For Rent", listings_path(params.merge(:sale_type => 'for_rent'))
+    %li= link_to "Either", listings_path(params.merge(:sale_type => 'any'))
 
 %h2= listings_title(params)
 
