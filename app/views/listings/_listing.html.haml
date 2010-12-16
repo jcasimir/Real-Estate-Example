@@ -1,4 +1,7 @@
 .listing
   %h3= listing.name
+  %h4
+    = "[For Rent] " if listing.for_rent?
+    = "[For Sale]" if listing.for_sale?
   %p= "Located in #{listing.city}, #{listing.state}"
   %p= raw "View all properties in #{link_for_city_with_state(listing.city, listing.state)} or #{link_for_state(listing.state)}"
