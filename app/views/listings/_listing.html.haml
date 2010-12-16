@@ -1,0 +1,4 @@
+.listing
+  %h3= listing.name
+  %p= "Located in #{listing.city}, #{listing.state}"
+  %p= "View other properties in #{listings_for_city(listing.city)} or #{listings_for_state(listing.state)}"

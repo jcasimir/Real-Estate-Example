@@ -1,0 +1,21 @@
+- title "Listings"
+
+.navigation
+  %p Listings by State:
+  %ul
+    - Listing.available_states.each do |state|
+      %li= link_to state, listings_path(:state => state)
+  
+  %p Listings by City
+  %ul
+    - Listing.available_cities.each do |city|
+      %li= link_to city, listings_path(:city => city)
+
+%h2= listings_title(params)
+
+%ul.actions
+  %li= link_to "Create a New Listing", new_listing_path
+
+= render :partial => 'listing', :collection => @listings
+
+
