@@ -2,9 +2,9 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Listing do
   before(:each) do
-    @listing = Listing.create(:name => "A Sample Property", :city => "Las Vegas", :state => "NV")
+    @listing = Listing.create(:name => "A Sample Property", :city => "Las Vegas", :state => "NV", :for_sale => true)
     @foreign = Listing.create(:name => "A Foreign Property", :city => "Phoenix", :state => "AZ")
-    @nearby = Listing.create(:name => "A Nearby Property", :city => "Reno", :state => "NV")
+    @nearby = Listing.create(:name => "A Nearby Property", :city => "Reno", :state => "NV", :for_rent => true)
   end
   
   it "should be valid with valid attributes" do
@@ -89,4 +89,16 @@ describe Listing do
       cities.should include(listing.city)
     end
   end
+  
+  it "should be in a group based on its sale type when for sale" do
+    Listing.by_sale_type('for_sale').should include(@listing)
+    Listing.for_sale.should include(@listing)
+  end
+  
+  it "should be in a group based on its sale type when for rent" do
+    Listing.by_sale_type('for_rent').should include(@nearby)
+    Listing.for_rent.should include(@nearby)    
+  end
+  
+  
 end
