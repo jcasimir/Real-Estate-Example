@@ -10,6 +10,7 @@ gem 'mongrel'
 gem 'nifty-generators'
 gem 'rspec-rails'
 gem 'rspec'
+gem 'haml'
 
 # Use unicorn as the web server
 # gem 'unicorn'

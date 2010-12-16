@@ -37,6 +37,7 @@ GEM
       abstract (>= 1.0.0)
     fastthread (1.0.7)
     gem_plugin (0.2.3)
+    haml (3.0.24)
     i18n (0.4.2)
     mail (2.2.10)
       activesupport (>= 2.3.6)
@@ -90,6 +91,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  haml
   mongrel
   nifty-generators
   rails (= 3.0.3)
