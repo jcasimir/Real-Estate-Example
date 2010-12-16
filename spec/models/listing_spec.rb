@@ -3,6 +3,8 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe Listing do
   before(:each) do
     @listing = Listing.create(:name => "A Sample Property", :city => "Las Vegas", :state => "NV")
+    @foreign = Listing.create(:name => "A Foreign Property", :city => "Phoenix", :state => "AZ")
+    @nearby = Listing.create(:name => "A Nearby Property", :city => "Reno", :state => "NV")
   end
   
   it "should be valid with valid attributes" do
@@ -29,8 +31,7 @@ describe Listing do
   end
   
   it "should not be listed when querying for a different state" do
-    listing_az = @listing.clone.update_attributes(:city => "Phoenix", :state => "AZ")
-    Listing.by_state(@listing.state).should_not include(listing_az)
+    Listing.by_state(@listing.state).should_not include(@foreign)
   end
   
   it "should be listed by its city" do
@@ -38,12 +39,38 @@ describe Listing do
   end
   
   it "should not be listed when querying for a different city" do
-    listing_az = @listing.clone.update_attributes(:city => "Phoenix", :state => "AZ")
-    Listing.by_city(@listing.city).should_not include(listing_az)
+    Listing.by_city(@listing.city).should_not include(@foreign)
   end
   
   it "should be listed by both its city and state" do
     Listing.by_state(@listing.state).by_city(@listing.city).should include(@listing)
   end
 
+  it "should be listed when searching for a city" do
+    Listing.search(:city => @listing.city).should include(@listing)
+  end
+  
+  it "should be listed when searching by a state" do
+    Listing.search(:state => @listing.state).should include(@listing)
+  end
+  
+  it "should not list foreign listings when searching by a city" do
+    Listing.search(:city => @listing.city).should_not include(@foreign)
+  end
+  
+  it "should not list foreign listings when searching by a state" do
+    Listing.search(:state => @listing.state).should_not include(@foreign)
+  end
+  
+  it "should be listed when searching by city and state" do
+    Listing.search(:state => @listing.state, :city => @listing.city).should include(@listing)
+  end
+  
+  it "should not list a nearby listing when searching by city" do
+    Listing.search(:city => @listing.state).should_not include(@nearby)
+  end
+  
+  it "should include a nearby listing when searching by state" do
+    Listing.search(:state => @listing.state).should include(@nearby)
+  end
 end

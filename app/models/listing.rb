@@ -10,5 +10,12 @@ class Listing < ActiveRecord::Base
     def by_city(city)
       where(:city => city)
     end
+    
+    def search(params)
+      search = Listing.scoped
+      search = search.by_city(params[:city]) if params[:city]
+      search = search.by_state(params[:state]) if params[:state]
+      search
+    end
   end
 end
